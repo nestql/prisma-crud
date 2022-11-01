@@ -1,0 +1,9 @@
+tsconfig*.json
+lib/**/*
+package/**/*
+tests/artifacts
+coverage
+**/prisma/generated/**/*
+**/prisma/migrations/**/*
+prisma-client-mock.js
+prisma-client-mock.d.ts

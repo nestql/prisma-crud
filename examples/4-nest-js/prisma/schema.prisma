@@ -1,0 +1,144 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../prisma/generated/client"
+}
+
+generator typegraphql {
+  provider                 = "node ../../src/cli/dev.ts"
+  output                   = "../prisma/generated/type-graphql"
+  emitDMMF                 = true
+  // emitTranspiledCode       = true
+  simpleResolvers          = false
+  // useOriginalMapping       = true
+  useUncheckedScalarInputs = false
+  emitIdAsIDType           = true
+  // emitOnly                 = "crudResolvers"
+  customPrismaImportPath   = "../client"
+  // contextPrismaKey         = "prismaClient"
+  useSimpleInputs          = true
+}
+
+// Role enum comment
+/// Role enum doc
+enum Role {
+  USER
+  ADMIN
+}
+
+// User model comment
+/// User model doc
+/// @@TypeGraphQL.type(name: "MainUser")
+model User {
+  // User model field comment
+  /// User model field doc
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  /// renamed field doc
+  /// @TypeGraphQL.field(name: "firstName")
+  name        String?
+  age         Int
+  /// @TypeGraphQL.field(name: "accountBalance")
+  balance     Float
+  amount      Float
+  /// @TypeGraphQL.field(name: "clientPosts")
+  posts       post[]   @relation("posts")
+  role        Role
+  /// @TypeGraphQL.omit(output: true)
+  editorPosts post[]   @relation("editorPosts")
+  grades      Int[]
+  aliases     String[]
+}
+
+enum PostKind {
+  BLOG
+  ADVERT
+}
+
+model post {
+  /// first line of comment
+  /// second line of comment
+  /// third line of comment
+  uuid      String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  /// @TypeGraphQL.omit(input: ["create", "update"])
+  updatedAt DateTime  @updatedAt
+  /// @TypeGraphQL.omit(input: true)
+  published Boolean   @default(false)
+  title     String
+  /// @TypeGraphQL.omit(output: true)
+  subtitle  String
+  content   String?
+  author    User      @relation(fields: [authorId], references: [id], name: "posts", onDelete: Cascade)
+  authorId  Int
+  /// @TypeGraphQL.omit(output: true)
+  editor    User?     @relation(fields: [editorId], references: [id], name: "editorPosts", onDelete: Cascade)
+  /// @TypeGraphQL.omit(output: true)
+  editorId  Int?
+  kind      PostKind?
+  metadata  Json
+}
+
+model Category {
+  name   String
+  slug   String
+  number Int
+
+  @@unique([slug, number], name: "categoryCompoundUnique")
+}
+
+model Patient {
+  firstName String
+  lastName  String
+  email     String
+
+  @@id([firstName, lastName])
+}
+
+model Movie {
+  directorFirstName String
+  directorLastName  String
+  director          Director @relation(fields: [directorFirstName, directorLastName], references: [firstName, lastName], onDelete: Cascade)
+  title             String
+
+  @@id([directorFirstName, directorLastName, title], name: "movieCompoundId")
+}
+
+model Director {
+  firstName String
+  lastName  String
+  movies    Movie[]
+
+  @@id([firstName, lastName])
+}
+
+model Problem {
+  id          Int       @id @default(autoincrement())
+  problemText String
+  likedBy     Creator[]
+  creator     Creator?  @relation(name: "creator", fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId   Int?
+}
+
+model Creator {
+  id       Int       @id @default(autoincrement())
+  name     String
+  likes    Problem[]
+  problems Problem[] @relation("creator")
+}
+
+model NativeTypeModel {
+  id      Int      @id @default(autoincrement()) @postgres.Integer
+  bigInt  BigInt?  @postgres.BigInt
+  byteA   Bytes?   @postgres.ByteA
+  decimal Decimal? @postgres.Decimal
+}
+
+/// @@TypeGraphQL.type(plural: "equipments")
+model Equipment {
+  id String @id @default(cuid())
+}

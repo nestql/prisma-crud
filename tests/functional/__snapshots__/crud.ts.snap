@@ -1,0 +1,380 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`crud resolvers execution aggregations should properly call PrismaClient on \`aggregate\` action with advanced operations: aggregateUser mocked response 1`] = `
+Object {
+  "aggregateUser": Object {
+    "__typename": "AggregateUser",
+    "_avg": Object {
+      "__typename": "UserAvgAggregate",
+      "floatField": 5,
+      "intField": 5,
+    },
+    "_count": Object {
+      "floatField": 1,
+      "intField": 1,
+    },
+    "_max": Object {
+      "__typename": "UserMaxAggregate",
+      "floatField": 10,
+      "intField": 10,
+    },
+    "_min": Object {
+      "__typename": "UserMinAggregate",
+      "floatField": 0,
+      "intField": 0,
+    },
+    "_sum": Object {
+      "__typename": "UserSumAggregate",
+      "floatField": 10,
+      "intField": 10,
+    },
+  },
+}
+`;
+
+exports[`crud resolvers execution aggregations should properly call PrismaClient on \`aggregate\` action with advanced operations: user.aggregate call args 1`] = `
+Array [
+  Array [
+    Object {
+      "_avg": Object {
+        "floatField": true,
+        "intField": true,
+      },
+      "_count": Object {
+        "floatField": true,
+        "intField": true,
+      },
+      "_max": Object {
+        "floatField": true,
+        "intField": true,
+      },
+      "_min": Object {
+        "floatField": true,
+        "intField": true,
+      },
+      "_sum": Object {
+        "floatField": true,
+        "intField": true,
+      },
+      "orderBy": Array [
+        UserOrderByWithRelationInput {
+          "intField": "desc",
+        },
+      ],
+      "skip": 1,
+      "take": 1,
+      "where": UserWhereInput {
+        "floatField": IntFilter {
+          "lte": 50,
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution aggregations should properly call PrismaClient on \`aggregate\` action with simple count field: aggregateUserCount mocked response 1`] = `
+Object {
+  "aggregateUser": Object {
+    "_count": Object {
+      "_all": 5,
+    },
+  },
+}
+`;
+
+exports[`crud resolvers execution aggregations should properly call PrismaClient on \`aggregate\` action with simple count field: user.aggregate call args 1`] = `
+Array [
+  Array [
+    Object {
+      "_count": Object {
+        "_all": true,
+      },
+      "orderBy": Array [
+        UserOrderByWithRelationInput {
+          "intField": "desc",
+        },
+      ],
+      "skip": 1,
+      "take": 1,
+      "where": UserWhereInput {
+        "floatField": IntFilter {
+          "lte": 50,
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution aggregations should properly call PrismaClient on \`groupBy\` action with advanced operations: groupByUser mocked response 1`] = `
+Object {
+  "groupByUser": Array [
+    Object {
+      "__typename": "UserGroupBy",
+      "_count": Object {
+        "__typename": "UserCountAggregate",
+        "_all": 5,
+      },
+      "_min": Object {
+        "__typename": "UserMinAggregate",
+        "floatField": 0,
+        "intField": 0,
+      },
+      "intField": 10,
+    },
+  ],
+}
+`;
+
+exports[`crud resolvers execution aggregations should properly call PrismaClient on \`groupBy\` action with advanced operations: user.groupBy call args 1`] = `
+Array [
+  Array [
+    Object {
+      "_count": Object {
+        "_all": true,
+      },
+      "_min": Object {
+        "floatField": true,
+        "intField": true,
+      },
+      "by": Array [
+        "intField",
+      ],
+      "where": UserWhereInput {
+        "floatField": IntFilter {
+          "gte": 0,
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations _count for relations should properly call prisma client: firstModel.findFirst call args 1`] = `
+Array [
+  Array [
+    Object {
+      "include": Object {
+        "_count": Object {
+          "select": Object {
+            "secondModelsField": true,
+          },
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations _count for relations should properly call prisma client: secondModelsField count mocked response 1`] = `
+Object {
+  "findFirstFirstModel": Object {
+    "_count": Object {
+      "secondModelsField": 2,
+    },
+    "idField": 1,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`create\` action: createUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "data": UserCreateInput {
+        "dateField": 2019-12-31T14:16:02.572Z,
+        "optionalStringField": "optional",
+        "uniqueStringField": "unique",
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`create\` action: createUser mocked response 1`] = `
+Object {
+  "createOneUser": Object {
+    "dateField": "2019-12-31T14:16:02.572Z",
+    "intIdField": 1,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`delete\` action: deleteUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "where": UserWhereUniqueInput {
+        "uniqueStringField": "unique",
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`delete\` action: deleteUser mocked response 1`] = `
+Object {
+  "deleteOneUser": Object {
+    "dateField": "2019-12-31T14:16:02.572Z",
+    "intIdField": 1,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`deleteMany\` action: deleteManyUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "where": UserWhereInput {
+        "dateField": DateTimeFilter {
+          "lte": 2019-12-31T19:16:02.572Z,
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`deleteMany\` action: deleteManyUser mocked response 1`] = `
+Object {
+  "deleteManyUser": Object {
+    "count": 3,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`findMany\` action: findManyUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "orderBy": Array [
+        UserOrderByWithRelationInput {
+          "intIdField": "desc",
+        },
+      ],
+      "skip": 1,
+      "take": 1,
+      "where": UserWhereInput {
+        "dateField": DateTimeFilter {
+          "lte": 2019-12-31T19:16:02.572Z,
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`findMany\` action: users mocked response 1`] = `
+Object {
+  "users": Array [
+    Object {
+      "dateField": "2019-12-31T14:16:02.572Z",
+      "intIdField": 1,
+    },
+  ],
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`findUnique\` action: findUniqueUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "where": UserWhereUniqueInput {
+        "uniqueStringField": "uniqueValue",
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`findUnique\` action: user mocked response 1`] = `
+Object {
+  "user": Object {
+    "dateField": "2019-12-31T14:16:02.572Z",
+    "intIdField": 1,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`update\` action: updateUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "data": UserUpdateInput {
+        "dateField": DateTimeFieldUpdateOperationsInput {
+          "set": 2019-12-31T14:16:02.572Z,
+        },
+      },
+      "where": UserWhereUniqueInput {
+        "uniqueStringField": "unique",
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`update\` action: updateUser mocked response 1`] = `
+Object {
+  "updateOneUser": Object {
+    "dateField": "2019-12-31T14:16:02.572Z",
+    "intIdField": 1,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`updateMany\` action: updateManyUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "data": UserUpdateManyMutationInput {
+        "optionalStringField": null,
+      },
+      "where": UserWhereInput {
+        "dateField": DateTimeFilter {
+          "lte": 2019-12-31T19:16:02.572Z,
+        },
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`updateMany\` action: updateManyUser mocked response 1`] = `
+Object {
+  "updateManyUser": Object {
+    "count": 3,
+  },
+}
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`upsert\` action: upsertUser call args 1`] = `
+Array [
+  Array [
+    Object {
+      "create": UserCreateInput {
+        "dateField": 2019-12-31T14:16:02.572Z,
+        "optionalStringField": "optional",
+        "uniqueStringField": "unique",
+      },
+      "update": UserUpdateInput {
+        "optionalStringField": null,
+      },
+      "where": UserWhereUniqueInput {
+        "uniqueStringField": "unique",
+      },
+    },
+  ],
+]
+`;
+
+exports[`crud resolvers execution basic operations should properly call PrismaClient on \`upsert\` action: upsertUser mocked response 1`] = `
+Object {
+  "upsertOneUser": Object {
+    "dateField": "2019-12-31T14:16:02.572Z",
+    "intIdField": 1,
+    "optionalStringField": "optional",
+    "uniqueStringField": "unique",
+  },
+}
+`;

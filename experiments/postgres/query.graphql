@@ -1,0 +1,371 @@
+query GetMainUsersAndPosts {
+  mainUsers {
+    ...MainUserData
+    advertPosts: clientPosts(where: { kind: { equals: ADVERT } }) {
+      ...PostData
+    }
+    blogPosts: clientPosts(where: { kind: { equals: BLOG } }) {
+      ...PostData
+      author {
+        clientPosts(where: { kind: { equals: ADVERT } }) {
+          ...PostData
+        }
+      }
+    }
+    clientPosts {
+      ...PostData
+    }
+  }
+  allPosts {
+    ...PostData
+    author {
+      ...MainUserData
+    }
+  }
+}
+
+mutation AddMainUser {
+  createOneMainUser(
+    data: {
+      age: 50
+      amount: 123
+      accountBalance: 50
+      email: "test3@test3.test3"
+      firstName: "Test"
+      role: USER
+    }
+  ) {
+    ...MainUserData
+  }
+}
+
+query MyFindMainUsers {
+  customFindMainUsersWithArgs(where: { accountBalance: { lte: 10 } }) {
+    ...MainUserData
+  }
+}
+
+query FindMainUsers {
+  mainUsers(
+    orderBy: { id: desc }
+    take: 2
+    where: {
+      OR: [{ email: { contains: "test3" } }, { role: { equals: ADMIN } }]
+    }
+    distinct: [firstName]
+  ) {
+    ...MainUserData
+  }
+}
+
+query SortAllMainUsers {
+  mainUsers(orderBy: [{ firstName: asc }, { id: desc }]) {
+    ...MainUserData
+  }
+}
+
+query FindMainUsersWithEmptyBalance {
+  mainUsers(where: { accountBalance: { equals: 0 } }) {
+    ...MainUserData
+  }
+}
+
+query FindPostsOfAdmins {
+  posts(where: { author: { is: { role: { equals: ADMIN } } } }) {
+    ...PostData
+    author {
+      ...MainUserData
+    }
+  }
+}
+
+fragment MainUserData on MainUser {
+  id
+  email
+  firstName
+  age
+  accountBalance
+  amount
+  role
+  hello
+  grades
+  aliases
+}
+
+fragment PostData on Post {
+  uuid
+  createdAt
+  updatedAt
+  published
+  title
+  content
+  kind
+  metadata
+}
+
+query GetDirectorsWithMovies {
+  directors {
+    firstName
+    lastName
+    movies {
+      title
+    }
+  }
+}
+
+query GetMoviesWithDirector {
+  movies {
+    title
+    director {
+      firstName
+      lastName
+    }
+  }
+}
+
+query GetDirector {
+  director(
+    where: { firstName_lastName: { firstName: "Bob", lastName: "Nolan" } }
+  ) {
+    firstName
+    lastName
+  }
+}
+
+query GetMovie {
+  movie(
+    where: {
+      movieCompoundId: {
+        directorFirstName: "Bob"
+        directorLastName: "Nolan"
+        title: "Hello World 2"
+      }
+    }
+  ) {
+    title
+    directorFirstName
+    directorLastName
+  }
+}
+
+query CountBravoPatients {
+  countBravoPatients: aggregatePatient(
+    where: { lastName: { contains: "Bravo" } }
+  ) {
+    _count {
+      _all
+    }
+  }
+}
+
+query FilterPostsByJson {
+  onWikiLeaks: posts(
+    where: { metadata: { equals: { publishedOnWikiLeaks: true } } }
+  ) {
+    ...PostData
+  }
+  notPublishedAndOthers: posts(
+    where: { metadata: { not: { publishedOnWikiLeaks: false } } }
+  ) {
+    ...PostData
+  }
+}
+
+query AggregateMainUser {
+  aggregateMainUser {
+    _count {
+      _all
+    }
+    _avg {
+      age
+    }
+    _sum {
+      balance
+      amount
+    }
+    _min {
+      age
+    }
+    _max {
+      age
+    }
+  }
+}
+
+# # incompatible with useUncheckedScalarInputs
+# mutation ConnectOrCreateExample {
+#   createPost(
+#     data: {
+#       title: "Test"
+#       subtitle: "Test test"
+#       metadata: {}
+#       published: true
+#       author: {
+#         connectOrCreate: {
+#           where: { id: 1 }
+#           create: {
+#             email: "test1@test.test"
+#             accountBalance: 0
+#             role: ADMIN
+#             amount: 0
+#             age: 11
+#           }
+#         }
+#       }
+#     }
+#   ) {
+#     ...PostData
+#     author {
+#       ...MainUserData
+#     }
+#   }
+# }
+
+# # incompatible with useUncheckedScalarInputs
+# mutation UncheckedInputsExample {
+#   createPost(
+#     data: {
+#       title: "Test"
+#       subtitle: "Test test"
+#       metadata: {}
+#       published: true
+#       authorId: 1
+#     }
+#   ) {
+#     ...PostData
+#     author {
+#       ...MainUserData
+#     }
+#   }
+# }
+
+mutation AtomicNumberOperations {
+  updateOneMainUser(
+    data: { accountBalance: { increment: 100 } }
+    where: { email: "test1@test.test" }
+  ) {
+    ...MainUserData
+  }
+}
+
+query ForbiddenCategories {
+  categories {
+    name
+    slug
+    number
+  }
+}
+
+query GroupPosts {
+  groupByPost(by: [kind], where: { author: { is: { id: { equals: 2 } } } }) {
+    kind
+    _count {
+      _all
+    }
+  }
+}
+
+query SortByRelation {
+  posts(take: 5, orderBy: [{ author: { role: asc } }, { title: desc }]) {
+    title
+    author {
+      firstName
+      role
+    }
+  }
+}
+
+mutation CreateManyProblems {
+  createManyProblem(
+    data: [{ problemText: "problem1" }, { problemText: "problem2" }]
+  ) {
+    count
+  }
+}
+
+query GetNativeTypesFields {
+  nativeTypeModels {
+    id
+    bigInt
+    byteA
+    decimal
+  }
+}
+
+mutation InsertNativeTypesFields {
+  createOneNativeTypeModel(
+    data: { bigInt: "987654321000000", decimal: "73.12", byteA: "BAgPEBcq" }
+  ) {
+    id
+    bigInt
+    byteA
+    decimal
+  }
+}
+
+mutation AddGrade {
+  updateOneMainUser(where: { id: 1 }, data: { grades: { push: 5 } }) {
+    ...MainUserData
+  }
+}
+
+query CountByRelations {
+  findFirstMainUser {
+    id
+    email
+    _count {
+      posts
+    }
+  }
+}
+
+query OrderByRelation {
+  mainUsers(orderBy: { clientPosts: { _count: desc } }) {
+    id
+    email
+    _count {
+      posts
+    }
+  }
+}
+
+query OrderByAggregateGroup {
+  groupByPost(by: kind, orderBy: { kind: desc }) {
+    kind
+    _count {
+      kind
+    }
+  }
+}
+
+query PostsPublishedOnWikiLeaks {
+  posts(where: { metadata: { path: ["publishedOnWikiLeaks"], equals: true } }) {
+    ...PostData
+  }
+}
+
+query PostsWithSomeViews {
+  posts(where: { metadata: { path: "views", gte: 1 } }) {
+    ...PostData
+  }
+}
+
+query getUsersByRelevance {
+  mainUsers(
+    orderBy: { _relevance: { fields: [email], sort: desc, search: "test" } }
+  ) {
+    id
+    firstName
+    email
+    role
+  }
+}
+
+query OrderByNulls {
+  posts(orderBy: { kind: { nulls: first, sort: asc } }) {
+    uuid
+    title
+    content
+    kind
+  }
+}
