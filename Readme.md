@@ -1,10 +1,8 @@
-![integration logo](https://raw.githubusercontent.com/nestql/prisma-crud/main/img/integration.png)
+![integration logo](img/screenshot.png)
 
-# TypeGraphQL & Prisma integration
+# @nestjs/graphql & prisma integration
 
-Prisma generator to emit TypeGraphQL types and CRUD resolvers from your Prisma schema.
-
-[**https://prisma.typegraphql.com/**](https://prisma.typegraphql.com/)
+Prisma generator to emit `@nestjs/graphql` types and CRUD resolvers from your `Prisma` schema.
 
 ## Documentation
 
@@ -15,14 +13,6 @@ The documentation, installation guide, detailed description of the API and all o
 You can check out some usage examples on this repo:
 
 https://github.com/nestql/prisma-crud/blob/main/examples/Readme.md
-
-## Feedback
-
-Currently released version `0.x` is just a preview of the upcoming integration. For now it lacks some customization option - picking models or fields of object types to expose in the schema, hiding input fields as well as picking exposed args fields. However, the base functionality is working well, so I strongly encourage you to give it a try and play with it.
-
-Any feedback about the developers experience or ideas about new features or enhancements are very welcome - please feel free to put your two cents by using the [GitHub Discussions feature](https://github.com/nestql/prisma-crud/discussions/new):
-
-<img src="https://raw.githubusercontent.com/nestql/prisma-crud/main/img/feedback.png" width="327"/>
 
 ## Future plans
 
