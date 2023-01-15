@@ -6,7 +6,7 @@
     "seed": "ts-node --transpile-only ./prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "~4.1.0",
+    "@prisma/client": "~4.8.1",
     "@types/graphql-fields": "^1.3.4",
     "apollo-server": "^3.10.0",
     "graphql": "^15.8.0",
