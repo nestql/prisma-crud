@@ -30,22 +30,32 @@ export async function generate(options: GeneratorOptions) {
   const generatorConfig = options.generator.config;
   // TODO: make this type `?-` and `| undefined`
   const externalConfig: ExternalGeneratorOptions = {
-    emitDMMF: parseStringBoolean(generatorConfig.emitDMMF),
-    emitTranspiledCode: parseStringBoolean(generatorConfig.emitTranspiledCode),
-    simpleResolvers: parseStringBoolean(generatorConfig.simpleResolvers),
-    useOriginalMapping: parseStringBoolean(generatorConfig.useOriginalMapping),
-    useUncheckedScalarInputs: parseStringBoolean(
-      generatorConfig.useUncheckedScalarInputs,
+    emitDMMF: parseStringBoolean(generatorConfig.emitDMMF as string),
+    emitTranspiledCode: parseStringBoolean(
+      generatorConfig.emitTranspiledCode as string,
     ),
-    emitIdAsIDType: parseStringBoolean(generatorConfig.emitIdAsIDType),
+    simpleResolvers: parseStringBoolean(
+      generatorConfig.simpleResolvers as string,
+    ),
+    useOriginalMapping: parseStringBoolean(
+      generatorConfig.useOriginalMapping as string,
+    ),
+    useUncheckedScalarInputs: parseStringBoolean(
+      generatorConfig.useUncheckedScalarInputs as string,
+    ),
+    emitIdAsIDType: parseStringBoolean(
+      generatorConfig.emitIdAsIDType as string,
+    ),
     emitOnly: parseStringArray(
-      generatorConfig.emitOnly,
+      generatorConfig.emitOnly as string,
       "emitOnly",
       ALL_EMIT_BLOCK_KINDS,
     ),
-    useSimpleInputs: parseStringBoolean(generatorConfig.useSimpleInputs),
-    customPrismaImportPath: generatorConfig.customPrismaImportPath,
-    contextPrismaKey: generatorConfig.contextPrismaKey,
+    useSimpleInputs: parseStringBoolean(
+      generatorConfig.useSimpleInputs as string,
+    ),
+    customPrismaImportPath: generatorConfig.customPrismaImportPath as string,
+    contextPrismaKey: generatorConfig.contextPrismaKey as string,
   };
   const internalConfig: InternalGeneratorOptions = {
     outputDirPath: outputDir,
