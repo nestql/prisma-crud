@@ -19,7 +19,7 @@
     "nestql-crud": "lib/generator.js"
   },
   "peerDependencies": {
-    "@nestjs/graphql": "^10.1.5",
+    "@nestjs/graphql": "^12.0.8",
     "@prisma/client": "~4.5.0",
     "@types/graphql-fields": "^1.3.4",
     "@types/node": "*",
@@ -34,7 +34,7 @@
     "pluralize": "^8.0.0",
     "semver": "^7.5.4",
     "ts-morph": "^16.0.0",
-    "tslib": "^2.6.0"
+    "tslib": "^2.4.1"
   },
   "devDependencies": {
     "@jest/types": "^29.6.1",
