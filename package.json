@@ -1,6 +1,6 @@
 {
   "name": "@nestql/prisma-crud",
-  "version": "4.8.2",
+  "version": "5.0.0",
   "scripts": {
     "build": "tsc",
     "package:build": "./package.sh",
